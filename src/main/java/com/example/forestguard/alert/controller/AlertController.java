@@ -16,7 +16,7 @@ public class AlertController {
 
     private final AlertService alertService;
 
-    // ✅ Active (unacknowledged) alerts
+
     @GetMapping
     public List<AlertResponse> getActiveAlerts() {
         return alertService.getActiveAlerts()
@@ -25,7 +25,7 @@ public class AlertController {
                 .collect(Collectors.toList());
     }
 
-    // ✅ History (acknowledged alerts only)
+
     @GetMapping("/history")
     public List<AlertResponse> getHistoryAlerts() {
         return alertService.getHistoryAlerts()
@@ -33,7 +33,7 @@ public class AlertController {
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
-    // ✅ Single alert details
+
     @GetMapping("/{id}")
     public AlertResponse getAlertById(@PathVariable Long id) {
         Alert alert = alertService.getById(id);
@@ -41,7 +41,7 @@ public class AlertController {
     }
 
 
-    // ✅ Officer acknowledges alert
+
     @PostMapping("/{id}/acknowledge")
     public void acknowledge(@PathVariable Long id) {
         alertService.acknowledge(id);
