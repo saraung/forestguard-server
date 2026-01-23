@@ -21,11 +21,10 @@ public class EventService {
 
     public Event ingest(EventIngestRequest request, String apiKey) {
 
-        // 1️⃣ Authenticate device using API key
+
         Device device = deviceService.getByApiKey(apiKey);
         Instant now = Instant.now();
 
-        // 2️⃣ Store raw event (always)
         Event event = new Event();
         event.setDevice(device);
         event.setLabel(request.getLabel());
@@ -35,7 +34,7 @@ public class EventService {
 
         Event savedEvent = eventRepository.save(event);
 
-        // 3️⃣ Escalate to alert ONLY if ESP32 already confirmed it
+
         if (request.isAlertTriggered()) {
             alertService.create(
                     device,
