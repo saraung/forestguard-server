@@ -25,12 +25,10 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    /**
-     * Register a new user
-     */
+
     public void register(RegisterRequest request) {
 
-        // Check if email already exists
+
         if (userRepository.existsByEmail(request.email())) {
             throw new BusinessException("Email already registered", HttpStatus.CONFLICT);
         }
@@ -39,16 +37,14 @@ public class AuthService {
         User user = new User();
         user.setEmail(request.email());
         user.setPassword(passwordEncoder.encode(request.password()));
-        user.setRole("USER");          // default role
+        user.setRole("USER");
         user.setEnabled(true);
-        user.setEmailVerified(false);  // verification flow later
+        user.setEmailVerified(false);
 
         userRepository.save(user);
     }
 
-    /**
-     * Login user and return JWT token
-     */
+
     public String login(LoginRequest request) {
 
         User user = userRepository.findByEmail(request.email())
@@ -62,7 +58,7 @@ public class AuthService {
             throw new BusinessException("Invalid email or password", HttpStatus.UNAUTHORIZED);
         }
 
-        // Generate JWT
+
         return jwtUtil.generateToken(user.getEmail());
     }
 }
