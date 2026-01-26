@@ -18,11 +18,11 @@ public class Alert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Which device raised this alert
+
     @ManyToOne(optional = false)
     private Device device;
 
-    // chainsaw, elephant, fire, gun_shot
+
     @Column(nullable = false)
     private String type;
 

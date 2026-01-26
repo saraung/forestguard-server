@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @RestController
 @RequestMapping("/api/alerts")
-@CrossOrigin // IMPORTANT for mobile
+@CrossOrigin
 public class AlertStreamController {
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
@@ -28,7 +28,7 @@ public class AlertStreamController {
         emitter.onTimeout(() -> emitters.remove(emitter));
         emitter.onError(e -> emitters.remove(emitter));
 
-        // 🔑 force connection flush
+
         try {
             emitter.send(SseEmitter.event().comment("connected"));
         } catch (Exception ignored) {}
@@ -38,7 +38,7 @@ public class AlertStreamController {
 
     public void push(Alert alert) {
 
-        // 🔑 SEND DTO, NOT ENTITY
+
         AlertResponse dto = new AlertResponse(
                 alert.getId(),
                 alert.getDevice().getDeviceId(),
