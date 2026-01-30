@@ -11,6 +11,5 @@ public class EventIngestRequest {
 
     private String label;
     private float confidence;
-
     private boolean alertTriggered;
 }
