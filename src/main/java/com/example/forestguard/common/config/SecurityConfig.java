@@ -56,7 +56,6 @@ public class SecurityConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        // 🔒 Allowed web origins (browser only)
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
                 "http://localhost:5071"
